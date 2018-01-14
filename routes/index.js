@@ -1,4 +1,5 @@
 const UserRoutes = require("./userRoutes");
+const PartyRoutes = require("./partyRoutes");
 
 class IndexRoutes {
     static Index(app){
@@ -9,6 +10,10 @@ class IndexRoutes {
     }
     static User(app){
         app.use('/api/users/', UserRoutes);
+    }
+
+    static Party(app){
+        app.use('/api/party/', PartyRoutes);
     }
 }
 
