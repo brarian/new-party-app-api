@@ -3,9 +3,9 @@ const PartyRoutes = require("./partyRoutes");
 
 class IndexRoutes {
     static Index(app){
-        app.all('/api/*', (req, res) => {
-            res.status(200).send("Welcome to new party API")
-        })
+        // app.all('/api/*', (req, res) => {
+        //     res.status(200).send("Welcome to new party API")
+        // })
 
     }
     static User(app){
@@ -13,7 +13,7 @@ class IndexRoutes {
     }
 
     static Party(app){
-        app.use('/api/party/', PartyRoutes);
+        app.use('/party/', PartyRoutes);
     }
 }
 

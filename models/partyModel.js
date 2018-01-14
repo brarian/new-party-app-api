@@ -4,7 +4,9 @@ mongoose.Promise = global.Promise;
 
 const Schema = mongoose.Schema;
 const PartySchema = new Schema({
-    Name: {type: String, required: true},
+    partyName: {type: String, required: true},
+    partyDate: {type: String, required: true},
+    partyTime: {type: String, required: true}
 });
 
 const PartyModel = mongoose.model("Party", PartySchema);

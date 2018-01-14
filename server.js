@@ -23,9 +23,9 @@ mongoose.connect(Config.DATABASE_URL, err => {
  });
 
 
- Routes.User(app);
- Routes.Index(app);
-
+Routes.User(app);
+Routes.Index(app);
+Routes.Party(app);
 
 app.listen(Config.PORT, () => console.log(`listening on ${Config.PORT}`));
 
