@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-
 const Schema = mongoose.Schema;
 const PartySchema = new Schema({
-    partyName: {type: String, required: true},
-    partyDate: {type: String, required: true},
-    partyTime: {type: String, required: true}
+    partyDate: {type: Date, required: true},
+    partyTime: {type: Date, required: true},
+    menu: {type: Array, required: true}, 
+    subQuestionType: {type: String, required: true}, 
+    subQuestions: {type: Array, required: true}
 });
 
 const PartyModel = mongoose.model("Party", PartySchema);
