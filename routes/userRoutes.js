@@ -7,7 +7,7 @@ const UserController = require('../controllers/userController');
 
 router.route('/:id')
     .get(UserController.GetUserById)
-    // .put(UserController.EditUser)
+    .put(UserController.EditUser)
     .delete(UserController.DeleteUser)
     
 router.route('/')

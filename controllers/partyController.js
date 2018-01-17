@@ -14,15 +14,16 @@ class PartyController {
 		})
 	}
 	
-	// static EditPartyById(req, res) {
-		//need help with the put endpoint
-	// 	PartyModel.findByIdAndUpdate({
-	// 		_id: req.params.id
-	// 	})
-	// 	.then((party) => {
-	// 		res.json
-	// 	})
-	// }
+	static EditPartyById(req, res) {
+		PartyModel.findByIdAndUpdate(req.params.id, {
+			$set: req.body
+		}, {new: true})
+		.then((updatedParty) => {
+			res.json({
+				updatedParty
+			})
+		})
+	}
 
 	static GetPartyById(req, res) {
 		PartyModel.findById({ 

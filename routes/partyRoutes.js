@@ -6,7 +6,7 @@ const PartyController = require('../controllers/partyController');
 
 router.route('/:id')
     .get(PartyController.GetPartyById)
-    // .put(UserController.EditPartyById)
+    .put(PartyController.EditPartyById)
     .delete(PartyController.DeleteParty)
     
 router.route('/')

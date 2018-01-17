@@ -36,6 +36,17 @@ class UserController {
 			})
 	}
 
+	static EditUser(req, res) {
+		UserModel.findByIdAndUpdate(req.params.id, {
+			$set: req.body
+		}, {new: true})
+		.then((updatedUser) => {
+			res.json({
+				updatedUser
+			})
+		})
+	}
+
 }
 
 module.exports = UserController;
