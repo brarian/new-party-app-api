@@ -72,7 +72,7 @@ describe("Party endpoint", () => {
 		});
 	})
 
-	it(`should delete a party given an id `, () => {
+	it(`should delete a party given an id `, (done) => {
 		let party = new Party({ 
 			 partyDate: "2017-10-10",
 			partyTime: "8:00 PM",
