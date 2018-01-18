@@ -8,7 +8,7 @@ const chaiHttp = require("chai-http");
 const mongoose = require('mongoose');
 const expect = chai.expect;
 const supertest = require("supertest");
-
+let User = require('../../models/userModel');
 
 chai.use(chaiHttp);
 
@@ -39,21 +39,22 @@ describe("User endpoint", () => {
 	client		
 	.get("/api/users/")
 		.end((res)=> {
-			expect(res).to.have.status(200);
+			expect(res).to.have.status(204);
 			expect(res.body.length).to.be.above(0);
 		})
 	})
 
-	it(`should add update a user's email given an id `, (done) => {
-		let user = new newUser({ 
+	it(`should update a user's email given an id `, (done) => {
+		let user = new User({ 
 			firstName: "Bonnie",
 			lastName: "Jones",
 			userName: "bjones",
 			email: "bj@gmail.com",
 			password: "123123"
 		})
-		console.log(user)
-		.put("/api/users/" + user.id)
+		user.save((err, User) => {
+			client
+		.put(`/api/users/${user._id}`)
 		.send({
 			firstName: "Bonnie",
 			lastName: "Jones",
@@ -62,19 +63,28 @@ describe("User endpoint", () => {
 			password: "123123"
 		})
 		.end((err, res) => {
-			expect(res).to.have.status(200);
-			expect(res).to.have.property('email').eql("bonnie@gmail.com");
+			expect(res).to.have.status(204);
+			expect(res.body).to.have.property('email').to.equal("bonnie@gmail.com");
 			done();
 			})
 		})
+	})
 
-
-	// it(`should delete a user on DELETE `, () => {
-	// 	return chai.request(app)
-	// 	.delete(`/:users/${res.body[0].id}`)
-	// 	.end((res) => {
-	// 		expect(res).to.have.status(204)
-	// 	});
-	// });
+	it(`should delete a user given an id `, () => {
+		let user = new User({ 
+			firstName: "Bonnie",
+			lastName: "Jones",
+			userName: "bjones",
+			email: "bj@gmail.com",
+			password: "123123"
+		})
+			user.save((err, User) => {
+				client
+			.delete(`/api/users/${user._id}`)
+			.end((err, res) => {
+				expect(res).to.have.status(204);
+				done();
+			});
+		});
+	});
 });
-

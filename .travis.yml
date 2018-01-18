@@ -2,3 +2,4 @@
  node_js: node
  services:
      - mongodb
+     deploy:arcane-castle-30083.herokuapp.com

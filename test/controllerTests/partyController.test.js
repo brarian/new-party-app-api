@@ -8,6 +8,7 @@ const supertest = require("supertest");
 const mongoose = require('mongoose');
 const expect = chai.expect; 
 chai.use(chaiHttp);
+let Party = require('../../models/partyModel');
 
 const app = require("../../server");
 
@@ -43,30 +44,48 @@ describe("Party endpoint", () => {
 		})
 	})
 
-	it(`should add update a 's email on PUT `, () => {
-		return chai.request(app)
-		.put(`/party/${req.params.id}`)
-		.end((res) => {
-			const updatedMenu= Object.assign(res.body[0], {
-				menu: ["seven", "eight", "nine"]
-		}); 
-		return chai.request(app)
-			.put(`/${res.body[0].id}`)
-			.send(updatedMenu)
-			.end((res)=> {
+	it(`should add update Party time on PUT `, () => {
+		let party = new Party({ 
+			partyDate: "2017-10-10",
+		 partyTime: "8:00 PM",
+		 menu: ["one", "two"], 
+		 subQuestionType: "Dinner", 
+		 subQuestions: ["three", "four"] 
+	 })
+		party.save((err, Party) => {
+			client
+			.put(`/party/${party._id}`)
+			.send({
+				partyDate: "2017-10-10",
+				partyTime: "11:00 AM",
+				menu: ["one", "two"], 
+				subQuestionType: "Dinner", 
+				subQuestions: ["three", "four"]
+			})
+			.end((err, res)=> {
 				expect(res).to.have.status(204)
 				expect(res.body).to.be.a('Object')
-				res.body.user.should.have.property('year').eql(1950);
+				res.body.user.should.have.property('partyTime').eql("11:00 AM");
 
 			})
 		})
 	})
 
-	// it(`should delete a party on DELETE `, () => {
-	// 	return chai.request(app)
-	// 	.delete(`/party/${res.body[0].id}`)
-	// 	.end((res) => {
-	// 		expect(res).to.have.status(204)
-	// 	});
-  // });
+	it(`should delete a party given an id `, () => {
+		let party = new Party({ 
+			 partyDate: "2017-10-10",
+			partyTime: "8:00 PM",
+			menu: ["one", "two"], 
+			subQuestionType: "Dinner", 
+			subQuestions: ["three", "four"] 
+		})
+		party.save((err, Party) => {
+			client
+		.delete(`/party/${party._id}`)
+		.end((err, res) => {
+			expect(res).to.have.status(204);
+			done();
+		});
+		});
+	});
 });

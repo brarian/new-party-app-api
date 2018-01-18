@@ -22,7 +22,7 @@ class PartyController {
 		.then((updatedParty) => {
 			res.json({
 				updatedParty
-			})
+			}).status(204)
 		})
 	}
 

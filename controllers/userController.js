@@ -23,7 +23,7 @@ class UserController {
 			res.json({message: "deleted"}).status(204);
 		})
 		.catch((error) => {
-			res.status(500).send({ error });
+			res.status(204).send({ error });
 		})
 	}
 
@@ -42,9 +42,7 @@ class UserController {
 			$set: req.body
 		}, {new: true})
 		.then((updatedUser) => {
-			res.json({
-				updatedUser
-			})
+			res.status(204);
 		})
 	}
 
