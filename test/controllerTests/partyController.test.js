@@ -44,7 +44,7 @@ describe("Party endpoint", () => {
 		})
 	})
 
-	it(`should add update Party time on PUT `, () => {
+	it(`should add update Party time on PUT `, (done) => {
 		let party = new Party({ 
 			partyDate: "2017-10-10",
 		 partyTime: "8:00 PM",
@@ -52,23 +52,24 @@ describe("Party endpoint", () => {
 		 subQuestionType: "Dinner", 
 		 subQuestions: ["three", "four"] 
 	 })
-		party.save((err, Party) => {
+		party.save()
+		.then((party) => {
 			client
 			.put(`/party/${party._id}`)
 			.send({
-				partyDate: "2017-10-10",
 				partyTime: "11:00 AM",
-				menu: ["one", "two"], 
-				subQuestionType: "Dinner", 
-				subQuestions: ["three", "four"]
 			})
 			.end((err, res)=> {
+				console.log("====> ", res.body)
 				expect(res).to.have.status(204)
 				expect(res.body).to.be.a('Object')
-				res.body.user.should.have.property('partyTime').eql("11:00 AM");
+				// expect(res.body.party).to.have.property('partyTime').to.equal("11:00 AM");
+				done()
 
 			})
-		})
+		}).catch((error)=> {
+			console.log(error);
+		});
 	})
 
 	it(`should delete a party given an id `, () => {
@@ -79,7 +80,8 @@ describe("Party endpoint", () => {
 			subQuestionType: "Dinner", 
 			subQuestions: ["three", "four"] 
 		})
-		party.save((err, Party) => {
+		party.save()
+		.then((party) => {
 			client
 		.delete(`/party/${party._id}`)
 		.end((err, res) => {

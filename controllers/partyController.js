@@ -20,9 +20,9 @@ class PartyController {
 			$set: req.body
 		}, {new: true})
 		.then((updatedParty) => {
-			res.json({
+			res.status(204).json({
 				updatedParty
-			}).status(204)
+			});
 		})
 	}
 
@@ -43,7 +43,10 @@ class PartyController {
 			_id: req.params.id 
 		})
 		.then((party) => {
-			res.json({ message: "deleted"}).send({ error })
+			res.status(204).send({ message: "deleted"})
+		})
+		.catch((error) => {
+			res.status(500).send({ error })
 		})
 	}
 }
