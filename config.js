@@ -1,6 +1,8 @@
 'use strict';
-const DATABASE_URL = 'mongodb://brarian:Apples55@ds247347.mlab.com:47347/new-party-app';
+require('dotenv').config()
 
+const DATABASE_URL = process.env.NODE_ENV==="test"? process.env.DATABASE_URL_TEST : process.env.DATABASE_URL;
+const DATABASE_URL_TEST = process.env.DATABASE_URL_TEST;
 const PORT = process.env.PORT || 8080;
 
 module.exports = {

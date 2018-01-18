@@ -4,6 +4,7 @@ class UserController {
 
 	static CreateUser(req, res){
 		const UserDetails = req.body;
+		console.log("============ user details ===>", req.body)
 		const newUser = new UserModel(UserDetails);
 		newUser.save()
 		.then((user) => {

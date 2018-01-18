@@ -1,13 +1,23 @@
+process.env.NODE_ENV = 'test';
+
+
+const Config = require('../../config');
+const DATABASE_URL_TEST = require('../../config');
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-
+const mongoose = require('mongoose');
 const expect = chai.expect;
+const supertest = require("supertest");
+
+
 chai.use(chaiHttp);
 
-const { app } = require("../../server");
+const app = require("../../server");
+
+const client = supertest.agent(app)
 
 describe("User endpoint", () => {
-	it("for CREATE should create a new user on POST.", () =>{
+	it("for CREATE should create a new user on POST.", (done) =>{
 		const newUser = {
 			"firstName": "JEAN",
 			"lastName":"123123",
@@ -15,49 +25,56 @@ describe("User endpoint", () => {
 			"email": "c@123123213.com",
 			"password":"121231233123"
 		}
-		return chai.request(app)
-		.post("/")
+		client
+		.post("/api/users/")
 		.send(newUser)
-		.then((res)=> {
+		.end((error, res)=> {
 			expect(res).to.have.status(201);
-			expect(res.body).to.not.equal.apply(null);
-			expect(res.body).to.only.include.keys("firstName", "lastName", "userName", "email", "password");
+			expect(res.body).to.be.a('Object')
+			done();
 		});
 	});
 
 	it("for READ should return a new user on GET.", () => {
-		return chai.request(app)
-		.get("/")
-		.then((res)=> {
+	client		
+	.get("/api/users/")
+		.end((res)=> {
 			expect(res).to.have.status(200);
 			expect(res.body.length).to.be.above(0);
-			expect(res.body).to.have.all.keys("firstName", "lastName", "userName", "email", "password");
 		})
 	})
 
-	it(`should add update a user's email on PUT `, () => {
-		return chai.request(app)
-		.put('/:id')
-		.then((res) => {
-			const updatedEmail = Object.assign(res.body[0], {
-				email: 'apples@email.com'
-		}); 
-		return chai.request(app)
-			.put(`/${res.body[0].id}`)
-			.send(updatedEmail)
-			.then((res)=> {
-				expect(res).to.have.status(204)
+	it(`should add update a user's email given an id `, (done) => {
+		let user = new newUser({ 
+			firstName: "Bonnie",
+			lastName: "Jones",
+			userName: "bjones",
+			email: "bj@gmail.com",
+			password: "123123"
+		})
+		console.log(user)
+		.put("/api/users/" + user.id)
+		.send({
+			firstName: "Bonnie",
+			lastName: "Jones",
+			userName: "bjones",
+			email : "bonnie@gmail.com",
+			password: "123123"
+		})
+		.end((err, res) => {
+			expect(res).to.have.status(200);
+			expect(res).to.have.property('email').eql("bonnie@gmail.com");
+			done();
 			})
 		})
-	})
 
-	it(`should delete a user on DELETE `, () => {
-		return chai.request(app)
-		.delete(`/:users/${res.body[0].id}`)
-		.then((res) => {
-			expect(res).to.have.status(204)
-		});
-	});
+
+	// it(`should delete a user on DELETE `, () => {
+	// 	return chai.request(app)
+	// 	.delete(`/:users/${res.body[0].id}`)
+	// 	.end((res) => {
+	// 		expect(res).to.have.status(204)
+	// 	});
+	// });
 });
 
-//finish endpoint tests
