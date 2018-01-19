@@ -24,7 +24,7 @@ describe("Party endpoint", () => {
 			"subQuestions": ["fourth", "fifth", "sixth"] 
 		}
 	  client
-		.post("/party/")
+		.post("/api/party/")
 		.send(newParty)
 		.end((error, res)=> {
 			console.log("response  ====>     ",  res.body);
@@ -36,7 +36,7 @@ describe("Party endpoint", () => {
 
 	it("for READ should return a party on get.", () => {
 		client
-		.get(`/party/`)
+		.get(`/api/party/`)
 		.end((res)=> {
 			expect(res).to.have.status(200);
 			expect(res.body.length).to.be.above(0);
@@ -55,7 +55,7 @@ describe("Party endpoint", () => {
 		party.save()
 		.then((party) => {
 			client
-			.put(`/party/${party._id}`)
+			.put(`/api/party/${party._id}`)
 			.send({
 				partyTime: "11:00 AM",
 			})
@@ -83,7 +83,7 @@ describe("Party endpoint", () => {
 		party.save()
 		.then((party) => {
 			client
-		.delete(`/party/${party._id}`)
+		.delete(`/api/party/${party._id}`)
 		.end((err, res) => {
 			expect(res).to.have.status(204);
 			done();

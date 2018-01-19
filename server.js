@@ -5,7 +5,7 @@ const Config = require('./config');
 const Routes = require('./routes/index')
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded());
 
 const cors = require('cors');
 const CLIENT_ORIGIN  = require('./config');
@@ -37,8 +37,8 @@ mongoose.connect(Config.DATABASE_URL, err => {
 //  });
 	
 Routes.User(app);
-Routes.Index(app);
 Routes.Party(app);
+Routes.Index(app);
 
 // app.listen(Config.PORT, () => console.log(`listening on ${Config.PORT}`))	;
 
