@@ -1,6 +1,6 @@
 const UserRoutes = require("./userRoutes");
 const PartyRoutes = require("./partyRoutes");
-
+const LoginRoutes = require("./loginRoutes");
 class IndexRoutes {
     static Index(app){
         app.all('/*', (req, res) => {
@@ -8,6 +8,7 @@ class IndexRoutes {
         })
 
     }
+
     static User(app){
         app.use('/api/users', UserRoutes);
     }
@@ -15,6 +16,19 @@ class IndexRoutes {
     static Party(app){
         app.use('/api/party', PartyRoutes);
     }
+
+    static About(app){
+        app.use('/about', (req, res) => {
+            res.status(200).send("welcome to the about page")
+        })
+    }
+
+    static Login(app){
+        app.use('/api/login', (req, res) => {
+            res.status(200).send("returning user")
+        })
+    }
+
 }
 
 module.exports = IndexRoutes;
