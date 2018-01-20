@@ -14,7 +14,7 @@ class LoginController {
 	}
 
 	static GetLoginforUser(req, res){
-		res.render('the login page')
+		res.status(200).send(user);
 	}
 }
 
