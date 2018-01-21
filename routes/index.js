@@ -18,15 +18,13 @@ class IndexRoutes {
     }
 
     static About(app){
-        app.use('/about', (req, res) => {
+        app.use('/api/about', (req, res) => {
             res.status(200).send("welcome to the about page")
         })
     }
 
     static Login(app){
-        app.use('/api/login', (req, res) => {
-            res.status(200).send("returning user")
-        })
+        app.use('/api/login', LoginRoutes);
     }
 
 }

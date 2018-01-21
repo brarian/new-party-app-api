@@ -3,13 +3,16 @@ const UserModel = require('../models/userModel');
 class LoginController {
 
 	static PostLoginforUser(req, res) {
-		const {userName, password} = req.body;
-		User.findOne({email})
+		const user = req.body;
+		console.log(user);
+		UserModel.findOne(user)
 		.then((user) => {
-			return res.send(user)
+			console.log("===inside then ===>", user)
+			return res.status(200).send(user)
 		})
 		.catch((error) => {
-			res.send(error)
+			console.log("===inside catch ===>", error)
+			return res.status(500).send(error)
 		})
 	}
 
