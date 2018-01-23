@@ -9,7 +9,7 @@ class LoginController {
 		UserModel.findOne({ userName: user.userName })
 		.then((user) => {
 			if(user){
-				const validUser = user.verifylPassword(req.body.password)
+				const validUser = user.verifyPassword(req.body.password)
 				if(validUser){
 					const token = Authentication.GenerateToken(user);
 					return res.status(200).send({token, message: "login successfull"})

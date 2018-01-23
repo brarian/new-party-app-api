@@ -6,18 +6,20 @@ class UserController {
 	static CreateUser(req, res){
 		const UserDetails = req.body;
 		console.log("============ user details ===>", req.body)
-		const newUser = new UserModel(UserDetails);
-		newUser.save()
-		.then((user) => {
-			// make this so it automatically generates token and sends it back to the frontend
-				const token = Authentication.AuthenticateUser(user);
-				return res.status(201).send({token, message:" new user created"})
+		const newUser = new UserModel(UserDetails)
+		UserModel.findOne({ userName: req.body.userName }).then((user)=> {
+			if (user) return res.status(403).send({message: "userName already exists"});
+			newUser.save().then((user)=> {
+				const token = Authentication.GenerateToken(user);
+				console.log(token);
+				return res.status(201).send({token, message: "user was created"})
+		});
 		})
 		.catch((error) => {
-			console.log("ERROROROROR", error.message)
 			return res.status(500).send(error);
 		})
 	}
+
 
 	static DeleteUser(req, res){
 		UserModel.findByIdAndRemove({
@@ -49,7 +51,6 @@ class UserController {
 			res.status(204).send({ updatedUser })
 		})
 	}
-
 }
 
 module.exports = UserController;
