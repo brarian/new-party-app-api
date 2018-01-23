@@ -8,10 +8,12 @@ class UserController {
 		const newUser = new UserModel(UserDetails);
 		newUser.save()
 		.then((user) => {
-			res.status(201).send({ user });
+			// make this so it automatically generates token and sends it back to the frontend
+			return res.status(201).send(user);
 		})
 		.catch((error) => {
-			res.status(500).send({ error });
+			console.log(error.message)
+			return res.status(500).send(error);
 		})
 	}
 
