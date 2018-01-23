@@ -1,3 +1,4 @@
+const Authentication = require('../middleware/authentication');
 const UserModel = require('../models/userModel');
 
 class UserController {
@@ -9,10 +10,11 @@ class UserController {
 		newUser.save()
 		.then((user) => {
 			// make this so it automatically generates token and sends it back to the frontend
-			return res.status(201).send(user);
+				const token = Authentication.AuthenticateUser(user);
+				return res.status(201).send({token, message:" new user created"})
 		})
 		.catch((error) => {
-			console.log(error.message)
+			console.log("ERROROROROR", error.message)
 			return res.status(500).send(error);
 		})
 	}

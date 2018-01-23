@@ -4,6 +4,7 @@ const SECRETKEY = process.env.SECRET || "LIGHTBLUEOCEAN";
 
 class Authentication{
     static AuthenticateUser(req, res, next){
+			console.log("REQ     ",  req);
         const token = req.headers.authorization ||
             req.headers['x-access-token'] ||
             req.body.token;

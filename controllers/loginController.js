@@ -9,10 +9,9 @@ class LoginController {
 		UserModel.findOne({ userName: user.userName })
 		.then((user) => {
 			if(user){
-				const validUser = user.verifyPassword(req.body.password)
+				const validUser = user.verifylPassword(req.body.password)
 				if(validUser){
 					const token = Authentication.GenerateToken(user);
-		
 					return res.status(200).send({token, message: "login successfull"})
 				}
 				return res.status(403).send({message: "password does not match"});
