@@ -6,12 +6,13 @@ class PartyController {
 		const PartyDetails = req.body;
 
 		const newParty = new PartyModel(PartyDetails)
-		
+		console.log('party stuff====>', PartyDetails);
 		newParty.save() 
 		.then((party) =>{
 			res.status(201).send({ party })
 		})
 		.catch((error) => {
+			console.log('errorr=====>>>', error.message);
 			res.status(500).send({ error })
 		})
 	}
@@ -26,10 +27,10 @@ class PartyController {
 			});
 		})
 	}
-
+//find all parties with the username attached 
 	static GetPartyById(req, res) {
-		PartyModel.findById({ 
-			_id: req.params.id 
+		PartyModel.find({ 
+			userId: req.params.id 
 		})
 		.then((party) => {
 			res.json({ "party": party }).status(204);

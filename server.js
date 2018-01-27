@@ -18,19 +18,29 @@ app.use(
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(Config.DATABASE_URL, err => {
-	if ((err) =>  reject(err));
-	server = app.listen(Config.PORT, () => console.log(`listening on ${Config.PORT}`))
-	.on('error', err => {
-    mongoose.disconnect();
- 	})
-});
+// mongoose.connect(Config.DATABASE_URL, err => {
+// 	if ((err) =>  reject(err));
+	
+	
+// 	.on('error', err => {
+//     mongoose.disconnect();
+//  	})
+// });
+
+mongoose.connect(Config.DATABASE_URL, { useMongoClient: true });
+mongoose.connection.on('error', (err) => {
+	console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
+	mongoose.disconnect();
+})
+
 
 Routes.Login(app);
 Routes.About(app);
 Routes.User(app);
 Routes.Party(app);
 Routes.Index(app);
+
+app.listen(Config.PORT, () => console.log(`listening on ${Config.PORT}`))
 
 
 module.exports = app
