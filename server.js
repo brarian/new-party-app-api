@@ -25,6 +25,7 @@ mongoose.connect(Config.DATABASE_URL, err => {
     mongoose.disconnect();
  	})
 });
+
 Routes.Login(app);
 Routes.About(app);
 Routes.User(app);

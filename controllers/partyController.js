@@ -4,7 +4,8 @@ class PartyController {
 
 	static CreateParty(req, res) {
 		const PartyDetails = req.body;
-		const newParty = new PartyModel(PartyDetails);
+
+		const newParty = new PartyModel(PartyDetails)
 		
 		newParty.save() 
 		.then((party) =>{

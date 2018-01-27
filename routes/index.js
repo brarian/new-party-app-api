@@ -23,6 +23,12 @@ class IndexRoutes {
         })
     }
 
+    static Profile(app){
+        app.use('/api/profile', (req, res) => {
+            res.status(200).send("this is the profile page")
+        })
+    }
+
     static Login(app){
         app.use('/api/login', LoginRoutes);
     }
