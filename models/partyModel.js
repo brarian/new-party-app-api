@@ -9,7 +9,8 @@ const PartySchema = new Schema({
     subQuestionType: {type: String, required: false}, 
     subQuestions: {type: Array, required: false}, 
     userId: {type: String, required: true},
-    name: {type: String, required: true}
+    name: {type: String, required: true}, 
+    bigGuestList: {type: Array, required: true}
 });
 
 const PartyModel = mongoose.model("Party", PartySchema);
