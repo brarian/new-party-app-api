@@ -6,7 +6,7 @@ const Routes = require('./routes/index')
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-
+// const nodemailer = require('./nodemailer/stmp');
 const cors = require('cors');
 const CLIENT_ORIGIN  = require('./config');
 
