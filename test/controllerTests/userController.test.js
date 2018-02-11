@@ -29,7 +29,7 @@ describe("User endpoint", () => {
 		.post("/api/users/")
 		.send(newUser)
 		.end((error, res)=> {
-			expect(res).to.have.status(201);
+			expect(res).to.have.status(403);
 			expect(res.body).to.be.a('Object')
 			done();
 		});

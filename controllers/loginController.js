@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const Authentication = require('../middleware/authentication');
 const UserModel = require('../models/userModel');
 

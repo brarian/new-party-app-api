@@ -42,7 +42,7 @@ class PartyController {
 			_id: req.params.id 
 		})
 		.then((party) => {
-			res.status(204).send({ message: "deleted"})
+			res.status(403).send({ message: "deleted"})
 		})
 		.catch((error) => {
 			res.status(500).send({ error })

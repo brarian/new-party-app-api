@@ -39,6 +39,7 @@ Routes.About(app);
 Routes.User(app);
 Routes.Party(app);
 Routes.Index(app);
+// Routes.Status(app);
 
 app.listen(Config.PORT, () => console.log(`listening on ${Config.PORT}`))
 
