@@ -35,11 +35,9 @@ class IndexRoutes {
         app.use('/api/login', LoginRoutes);
     }
 
-    // static StatusUpdate(app){
-    //     app.use('/api/status', (req, res) => {
-    //         res.status(200).send('status route function');
-    //     })
-    // }   
+    static StatusUpdate(app){
+        app.use('/api/status', StatusUpdate)
+    }   
 
 }
 

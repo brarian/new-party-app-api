@@ -15,13 +15,12 @@ class PartyController {
 	}
 	
 	static EditPartyById(req, res) {
-		PartyModel.findByIdAndUpdate(req.params.id, {
-			$set: req.body
+		const key = 'statusUpdate.'+req.body.name
+		return PartyModel.findByIdAndUpdate(req.params.id, {
+			$set: req.body.statusUpdate? { [key]: req.body.statusUpdate[req.body.name]}: req.body
 		}, {new: true})
 		.then((updatedParty) => {
-			res.status(204).json({
-				updatedParty
-			});
+			return res.status(201).send(updatedParty);
 		})
 	}
 

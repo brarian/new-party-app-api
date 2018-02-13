@@ -5,23 +5,15 @@ const StatusModel = require('../models/statusUpdateModel');
 class StatusController {
     
     static GetStatus(req, res) {
-        StatusModel.find({
-            id: req.params.id
-        })
-        .then((status) => {
-            res.send("get status").status(204);
-        })
-        .catch((error) => {
-            res.status(500).send(error)
-        })
+        res.send('the status controller').status(204);
     }
 
     static EditStatusById(req, res){
-        StatusModel.findByIdAndUpdate(req.params.id, {
-			$set: req.body
-        }, {new: true})
+        StatusModel.findByIdAndUpdate({ _id: req.params.id })
         .then((updatedStatus) =>{
-            res.send("it updated status").status(204);
+            res.send("an updated status").status(204);
         })
     }
 }
+
+module.exports = StatusController;
