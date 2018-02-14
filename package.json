@@ -28,10 +28,6 @@
   },
   "scripts": {
     "test": "NODE_ENV=test mocha --timeout 5000 ./test/**/*.test.js --exit",
-    "start": "nodemon server.js", 
-    "start:client": "react-scripts start",
-    "build": "npm run build-css && react-scripts build",
-    "postinstall": "npm run build"
   },
   "author": "",
   "license": "ISC"
