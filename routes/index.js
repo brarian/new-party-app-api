@@ -1,7 +1,6 @@
 const UserRoutes = require("./userRoutes");
 const PartyRoutes = require("./partyRoutes");
 const LoginRoutes = require("./loginRoutes");
-const StatusUpdate = require("./statusUpdateRoute")
 
 class IndexRoutes {
     static Index(app){
@@ -35,9 +34,6 @@ class IndexRoutes {
         app.use('/api/login', LoginRoutes);
     }
 
-    static StatusUpdate(app){
-        app.use('/api/status', StatusUpdate)
-    }   
 
 }
 
