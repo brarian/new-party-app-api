@@ -15,21 +15,37 @@ class PartyController {
 	}
 	
 	static EditPartyById(req, res) {
-		const key = 'statusUpdate.'+req.body.name
+		const name = Object.keys(req.body.statusUpdate)[0]
+		const key = 'statusUpdate.'+name
 		return PartyModel.findByIdAndUpdate(req.params.id, {
-			$set: req.body.statusUpdate? { [key]: req.body.statusUpdate[req.body.name]}: req.body
+			$set: req.body.statusUpdate? { [key]: req.body.statusUpdate[name]}: req.body
 		}, {new: true})
 		.then((updatedParty) => {
 			return res.status(201).send(updatedParty);
 		})
 	}
 
-	static GetPartyById(req, res) {
+	static GetPartiesByUserId(req, res) {
 		PartyModel.find({ 
 			userId: req.params.id 
 		})
 		.then((party) => {
 			res.json({ "party": party }).status(204);
+		})
+		.catch((error) => {
+			res.status(500).send({ error })
+		})
+	}
+
+	static GetPartyById(req, res) {
+		PartyModel.findById(req.params.id)
+		.then((party) => {
+			if(party){
+				return res.json(party).status(200);
+			}
+			return res.status(404).json({
+				message: "party not found"
+			})
 		})
 		.catch((error) => {
 			res.status(500).send({ error })

@@ -8,6 +8,11 @@ router.route('/:id')
     .get(PartyController.GetPartyById)
     .put(PartyController.EditPartyById)
     .delete(PartyController.DeleteParty)
+
+
+router.route('/user/:id')
+    .get(PartyController.GetPartiesByUserId)
+
     
 router.route('/')
     .post(PartyController.CreateParty)
