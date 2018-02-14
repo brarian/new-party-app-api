@@ -28,6 +28,8 @@
   },
   "scripts": {
     "test": "NODE_ENV=test mocha --timeout 5000 ./test/**/*.test.js --exit",
+    "start": "nodemon server.js",
+    "postinstall": "knex migrate:latest && if [ \"$NODE_ENV\" = production ]; then cd web_app/ && npm install --only=dev && npm install && npm run build; fi"
   },
   "author": "",
   "license": "ISC"
