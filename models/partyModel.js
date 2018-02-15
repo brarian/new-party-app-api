@@ -13,17 +13,29 @@ const PartySchema = new Schema({
     name: {type: String, required: true}, 
     bigGuestList: {type: Array, required: true},
     statusUpdate: { type: Object, default: {
-        playlist: false,
-        inventory: false,
+        invites: false,
+        menu: false,
+        help: false,
+        
+        
         rsvp: false,
-        clean: false, 
+        inventory: false,
         grocery: false, 
-        seating: false, 
+        seating: false,
         alcohol: false,
+
         shop: false,
+        clean: false, 
+        playlist: false,
+
         setTable: false,
         ice: false,
-        flowers: false
+        flowers: false, 
+        cookBefore: false, 
+
+        drinks: false, 
+        candles: false, 
+        dressed: false
     }}
 });
 
