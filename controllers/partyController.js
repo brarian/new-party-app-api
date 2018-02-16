@@ -3,6 +3,7 @@ const PartyModel = require('../models/partyModel');
 class PartyController {
 
 	static CreateParty(req, res) {
+		console.log("==================++>", req.body)
 		const PartyDetails = req.body;
 		const newParty = new PartyModel(PartyDetails)
 		newParty.save() 

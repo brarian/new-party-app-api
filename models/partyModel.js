@@ -4,6 +4,8 @@ mongoose.Promise = global.Promise;
 
 const Schema = mongoose.Schema;
 const PartySchema = new Schema({
+    type: { type: String, required: true},
+    theme: {type: String, required: false},
     date: {type: String, required: true},
     time: {type: String, required: true},
     menu: {type: Object, required: true}, 
@@ -16,7 +18,6 @@ const PartySchema = new Schema({
         invites: false,
         menu: false,
         help: false,
-        
         
         rsvp: false,
         inventory: false,
